@@ -1,0 +1,135 @@
+//CPS04W  JOB CLASS=A,MSGCLASS=X,NOTIFY=CPS04                           00001000
+//CWCXCDB  PROC SUFFIX=1$,                                              00003000
+//         LOAD='SIPGI.LIB.LOADC',                                      00006000
+//         LOADLIB='SIPGI.LIB.LOADC',                                   00007000
+//         COPY='SIPGI.LIB.COPY',                                       00009000
+//*        COPY='CMPWARE.DEMORR.CICS.COPY',                             00009000
+//         MEMBER=&MEMBER,                                              00020000
+//         DBRMMEMB=&MEMBER,                                            00020200
+//         TEST=,                                                       00021000
+//         TICA=CALL,                                                   00030000
+//         RTEST=,                                                      00040000
+//         DBRMLIB='SIPGI.LIB.DBRM',                                    00050000
+//         DCLGEN='SIPGI.LIB.DCLGEN'                                    00060000
+//*                                                                     00070000
+//*------------------------------------------------------------------*  00080000
+//*              COMPILATORE CICS COBOL2 DB2 V2 R3 M0.               *  00090000
+//*------------------------------------------------------------------*  00100000
+//*                                                                     00110000
+//PC      EXEC PGM=DSNHPC,                                              00120000
+//         PARM='HOST(COB2),APOST,SOURCE,XREF',REGION=4096K             00130000
+//DBRMLIB  DD DISP=OLD,DSN=&DBRMLIB(&DBRMMEMB)                          00140000
+//STEPLIB  DD DISP=SHR,DSN=DSN230L.DSNEXIT                              00160000
+//         DD DISP=SHR,DSN=DSN230L.DSNLOAD                              00170000
+//SYSCIN   DD DSN=&&DSNHOUT,DISP=(MOD,PASS),UNIT=SYSDA,                 00180000
+//            SPACE=(800,(1500,1500)),                                  00190000
+//            DCB=(RECFM=FB,BLKSIZE=3120,LRECL=80)                      00191000
+//SYSLIB   DD DISP=SHR,DSN=&DCLGEN                                      00200000
+//         DD DSN=&COPY,DISP=SHR                                        00210000
+//SYSPRINT DD SYSOUT=*                                                  00230000
+//SYSTERM  DD SYSOUT=*                                                  00240000
+//SYSUDUMP DD SYSOUT=*                                                  00250000
+//SYSUT1   DD SPACE=(800,(1500,1500),,,ROUND),UNIT=SYSDA                00260000
+//SYSUT2   DD SPACE=(800,(1500,1500),,,ROUND),UNIT=SYSDA                00270000
+//*------------------------------------------------------------------*  00280000
+//TRN    EXEC PGM=DFHECP&SUFFIX,                                        00290000
+//            PARM=(COBOL2,NOSEQ,SP),                                   00300000
+//            REGION=1024K                                              00310000
+//STEPLIB  DD DSN=CICS.V3R3M0.SDFHLOAD,DISP=SHR                         00320000
+//SYSPRINT DD SYSOUT=*                                                  00330000
+//SYSIN    DD DSN=&&DSNHOUT,DISP=(OLD,DELETE)                           00340000
+//SYSPUNCH DD DSN=&&SYSCIN,                                             00350000
+//            DISP=(,PASS),UNIT=SYSDA,                                  00360000
+//            DCB=BLKSIZE=400,                                          00370000
+//            SPACE=(800,(1500,1500))                                   00380000
+//*------------------------------------------------------------------*  00390000
+//COB    EXEC PGM=IGYCRCTL,REGION=1024K,                                00400000
+//       PARM=('OBJECT,RENT,XREF,MAP,OFFSET,APOST,LIB&TEST.&RTEST')     00410000
+//STEPLIB DD DSN=SYS1.COB2COMP,DISP=SHR                                 00420000
+//SYSLIB   DD DSN=CICS.V3R3M0.SDFHCOB,DISP=SHR                          00430000
+//         DD DISP=SHR,DSN=&COPY                                        00440000
+//SYSIN    DD DSN=&&SYSCIN,DISP=(OLD,DELETE)                            00480000
+//SYSLIN   DD DSN=&&LOADSET,DISP=(MOD,PASS),                            00490000
+//            UNIT=SYSDA,SPACE=(800,(1500,1500))                        00500000
+//SYSUT1   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00510000
+//SYSUT2   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00520000
+//SYSUT3   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00530000
+//SYSUT4   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00540000
+//SYSUT5   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00550000
+//SYSUT6   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00560000
+//SYSUT7   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00570000
+//*--- SYSPRINT MODIFICATA PER PASSO SUCESSIVO DI POST PROCESSOR --*    00572000
+//SYSPRINT DD UNIT=SYSDA,SPACE=(TRK,(50,30)),DCB=BLKSIZE=16093,         00573000
+//            DISP=(MOD,PASS)                                           00574000
+//*                                                                     00575000
+//*------------------------------------------------------------------*  00576000
+//*       PASSO DI POST PROCESSOR PER I PRODOTTI COMPUWARE              00577000
+//*------------------------------------------------------------------*  00578000
+//* ORIGINALE IN CMPWARE.CSS.V761.SLCXCNTL(CXCOB1)                      00579000
+//* NB: IN CASO DI SOURCE CON COPYSUPPRESS UTILIZZARE IL PREPROCESSOR   00579100
+//*     COME DA ESEMPIO PRECOMP IN CMPWARE.CNTL O ORIGINALE IN          00579200
+//*     CMPWARE.CSS.V761.SLCXCNTL(CXCOBPRE)                             00579300
+//*------------------------------------------------------------------*  00579400
+//CWPCDRVR EXEC PGM=CWPCDRVR,REGION=2048K                               00579500
+//*                                                                     00579600
+//STEPLIB  DD  DSN=SYS1.SORTLIB,DISP=SHR                                00579700
+//         DD  DSN=CMPWARE.CSS.V761.SLCXLOAD,DISP=SHR                   00579800
+//CWPPRTI  DD  DSN=*.COB.SYSPRINT,DISP=(OLD,DELETE)                     00579900
+//CWPERRM  DD  SYSOUT=*                                                 00580000
+//CWPPRTO  DD  SYSOUT=*                                                 00580100
+//SYSOUT   DD  SYSOUT=*                                                 00580200
+//SORTWK01 DD  SPACE=(CYL,(20,10)),UNIT=SYSDA                           00580300
+//CWPWRK0  DD  SPACE=(TRK,(60,30)),UNIT=SYSDA                           00580400
+//CWPWRK1  DD  SPACE=(CYL,(20,10)),UNIT=SYSDA                           00580500
+//CWPWRK2  DD  SPACE=(TRK,(60,30)),UNIT=SYSDA                           00580600
+//CWPWRK3  DD  SPACE=(TRK,(60,30)),UNIT=SYSDA                           00580700
+//CWPWRK4  DD  SPACE=(TRK,(60,30)),UNIT=SYSDA                           00580800
+//*CWPLOAD DD  DSN=*.COB.SYSLIN,DISP=(OLD,PASS)                         00580900
+//CWPLOAD  DD  DUMMY                                                    00581000
+//CWPDECK  DD  DUMMY                                                    00581100
+//*                                                                     00581200
+//*CWPDDIO  DD  DISP=SHR,DSN=CMPWARE.DEMORR.CICS.XC.LISTING             00581300
+//CWPDDIO  DD  DISP=SHR,DSN=&LISTING                                    00581300
+//*                                                                     00581400
+//SYSUDUMP DD  SYSOUT=*                                                 00581500
+//SYSPRINT DD  SYSOUT=*                                                 00581600
+//*- PARAMETRI DI FUNZIONAMENTO DEL POSTPROCESSOR -------------------*  00581700
+//CWPPRMO  DD  DSN=CMPWARE.CSS.V761.SLCXCNTL(CXLPCOBC), <-- CIC ENV     00581800
+//             DISP=SHR                                                 00581900
+//*CWPPRMO  DD  DSN=CMPWARE.CSS.V761.SLCXCNTL(CXLPCOBB), <-- BATCH ENV  00582000
+//*             DISP=SHR                                                00582100
+//*------------------------------------------------------------------*  00582200
+//*------------------------------------------------------------------*  00583000
+//LKED    EXEC PGM=IEWL,                                                00590000
+//        PARM='LIST,XREF,LET,MAP,&TICA',                               00600000
+//        COND=((4,LT,COB),(4,LT,TRN),(4,LT,PC))                        00610000
+//SYSPRINT DD SYSOUT=*                                                  00611000
+//SYSLIB   DD DISP=SHR,DSN=DSN230L.DSNLOAD                              00620000
+//         DD DISP=SHR,DSN=CICS.V3R3M0.SDFHLOAD                         00630000
+//         DD DISP=SHR,DSN=SYS1.COB2CICS                                00640000
+//         DD DISP=SHR,DSN=SYS1.COB2LIB                                 00641000
+//         DD DISP=SHR,DSN=CICS.V3R3M0.SDFHCOB                          00650000
+//         DD DISP=SHR,DSN=&LOADLIB                                     00660000
+//SYSLIN   DD DSN=&&LOADSET,DISP=(OLD,DELETE)                           00700000
+//         DD DISP=SHR,DSN=CMPWARE.DEMORR.CICS.INCLUDE(DFHECI)          00711000
+//         DD DISP=SHR,DSN=CMPWARE.DEMORR.CICS.INCLUDE(DSNCLI)          00712000
+//         DD DDNAME=SYSIN                                              00713000
+//SYSLMOD  DD DISP=SHR,DSN=&LOAD(&MEMBER)                               00720000
+//SYSPRINT DD DSN=&&LINPUT,DISP=(,PASS),UNIT=SYSDA,SPACE=(CYL,(10,10)), 00730000
+//            DCB=(DSORG=PS,LRECL=121,BLKSIZE=2420,RECFM=FBA)           00740000
+//SYSIN    DD DUMMY                                                     00750000
+//SYSUT1   DD UNIT=SYSDA,SPACE=(800,(1500,1500))                        00760000
+//*------------------------------------------------------------------*  00770000
+//   PEND                                                               00770000
+//*------------------------------------------------------------------*  00770000
+//*------------------------------------------------------------------*  00770000
+//*------------------------------------------------------------------*  00770000
+//CW01DEMO   EXEC CWCXCDB,          (COBOL/CICS/DB2)                    00002000
+//         LOAD='CMPWARE.DEMORR.CICS.LOAD',                             00003000
+//         LOADLIB='CMPWARE.DEMORR.CICS.LOAD',                          00004000
+//         COPY='CMPWARE.DEMORR.CICS.COPY',                             00005000
+//         DBRMLIB='CMPWARE.DEMORR.CICS.DBRM',                          00006000
+//         DCLGEN='CMPWARE.DEMORR.CICS.DCLGEN',                         00007000
+//         LISTING='CMPWARE.XPEDCICS.LISTING',                          00007000
+//         MEMBER=CW13DEMO            (NOME PGM.)                       00008000
+//PC.SYSIN DD DSN=CMPWARE.DEMORR.CICS.SOURCE(CW13DEMO),DISP=SHR         00009000
