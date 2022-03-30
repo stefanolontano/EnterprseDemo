@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Airport Demo</title>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="css/airport.css" />
+        <style>
+            /* App custom styles */
+        </style>
+        <script type="text/javascript" src="scripts/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery-ui.js"></script>
+        <script type="text/javascript" src="scripts/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" src="scripts/airport.js"></script>
+        <script type="text/javascript">
+            function ClearForm()
+            {
+                document.getElementById("CalculateForm").reset();
+                document.getElementById("distance-km").textContent = "";
+                document.getElementById("distance-mi").textContent = "";
+                document.getElementById("ap1").textContent = "";
+                document.getElementById("ap2").textContent = "";
+                document.getElementById("map").textContent = "";
+                return false;
+            }
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Airport Demo
+                </h3>
+            </div>
+            <div data-role="content" style="padding: 15px">
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-theme="" data-icon="home" class="ui-btn-active">
+                                Welcome
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page4" data-theme="" data-icon="star">
+                                Demo
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page2" data-theme="" data-icon="info">
+                                About
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p>
+                        <strong>
+                            Welcome to the Airport demo.
+                        </strong>
+                    </p>
+                    <p>
+                        <b>
+                            Click the Demo button on the navigation bar to begin.
+                        </b>
+                    </p>
+                </div>
+                <div style=" text-align:center">
+                    <img style="width: 251px; height: 180px" src="./images/plane.jpg" alt="" />
+                </div>
+            </div>
+            <div data-theme="a" data-role="footer" data-position="fixed">
+                <h2>
+                    Micro Focus
+                </h2>
+            </div>
+        </div>
+        <div data-role="page" id="page4">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Airport Demo
+                </h3>
+            </div>
+            <div data-role="content" style="padding: 15px">
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-theme="" data-icon="home">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page4" data-theme="" data-icon="refresh" onclick="ClearForm();">
+                                Start over
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <form id="CalculateForm"  onsubmit="return false;">
+                    <div>
+                        <fieldset data-role="fieldcontain">
+                            <label for="airport1">
+                                1st Airport Code <span class="nowrap">(e.g. LHR)</span>:
+                            </label>
+                            <input data-autocomplete="true" id="airport1" name="airport1" value="" type="text" />
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset data-role="fieldcontain">
+                            <label for="airport2">
+                                2nd Airport Code <span class="nowrap">(e.g. SEA)</span>:
+                            </label>
+                            <input data-autocomplete="true" id="airport2" name="airport2" value="" type="text" />
+                        </fieldset>
+                    </div>
+                    <input type="submit" class="button" data-theme="b" data-icon="search" data-iconpos="left" value="Submit" data-inline="true" data-mini="true" />
+                    <h2>
+                        Distance:
+                        <span id="distance-km"></span>km,
+                        <span id="distance-mi"></span>miles.
+                    </h2>
+                    <h3 id="ap1"></h3>
+                    <h3 id="ap2"></h3>
+                    <div style="text-align:center" id="map"></div>
+                </form>
+            </div>
+            <div data-theme="a" data-role="footer" data-position="fixed">
+                <h3>
+                    Micro Focus
+                </h3>
+            </div>
+        </div>
+        <div data-role="page" id="page2">
+            <div data-theme="a" data-role="header">
+                <h2>
+                    About Airport
+                </h2>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-theme="" data-icon="home" class="ui-btn-active">
+                                Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content" style="padding: 15px">
+                <div>
+                    <p>
+                        <strong>
+                            Airport Demo is a simple web application for use on Mobile devices.
+                        </strong>
+                    </p>
+                    <p>
+                        <strong>
+                            It combines COBOL with jQuery and jQueryMobile to deliver a legacy application
+                            on your iPhone, iPad, Android, Windows Phone, BlackBerry or other device.
+                        </strong>
+                    </p>
+                    <p>
+                        <strong>
+                            <br />
+                        </strong>
+                    </p>
+                </div>
+            </div>
+            <div data-theme="a" data-role="footer">
+                <h3>
+                    Micro Focus
+                </h3>
+            </div>
+        </div>
+    </body>
+</html>

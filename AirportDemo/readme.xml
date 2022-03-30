@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="../../XSLT/EclipseOverview.xslt" type="text/xsl"?>
+<sample>
+  <name>JVM COBOL Airport Demo</name>
+  <contents>
+    <content linkto="overview">Overview</content>
+    <content linkto="setup">How to Import These Demonstration Files into Eclipse</content>
+    <content linkto="howToRun">How to Run This Demonstration</content>
+  </contents>
+  <overview>
+    <heading>Overview</heading>
+    <directory>Eclipse\jvm_cobol\AirportDemo</directory>
+    <description>This application demonstrates how to run a Java web application with a JVM COBOL backend on an Apache Tomcat server.</description>
+  </overview>
+  <setup>
+    <heading>How to Import These Demonstration Files into Eclipse</heading>	
+  </setup>
+  <howToRun>
+    <heading>How to Run the Demonstration</heading>
+    <steps>
+	  <step>
+		<description>To set up Apache Tomcat:</description>
+		<steps>
+			<step>Navigate to http://tomcat.apache.org/download-70.cgi</step>
+			<step>Navigate to the <b>Binary Distributions</b> section.</step>
+			<step>Under <b>Core</b> select a distribution that is suitable for your machine and download the .zip or the .tar.gz archive.</step>
+			<step>Extract the contents of the archive to a folder on your machine.</step>
+		</steps>
+	  </step>
+      <step>
+        <description>To run this demonstration in Eclipse:</description>
+        <steps>
+		  <step>Note: The COBOL Explorer view in Enterprise Developer is not configured to display Java projects and the AirportWebDemo project, a Java project, is not visible. (The project is visible in Visual COBOL). In order to display the project in Enterprise Developer:
+				<steps>
+					<step>Click on the three vertical dots at the top right corner of the COBOL Explorer view (View Menu) and click <b>Filters and Customization... </b></step>
+					<step>Disable the checkbox for <b>Non-COBOL Projects</b> and click <b>OK</b>. The AirportWebDemo is now shown in COBOL Explorer.</step>
+				</steps>
+		  </step>
+          <step>By default, Eclipse builds projects automatically. If automatic builds are disabled, in order to build the demonstration projects, click <b>Project > Build All</b>.</step>
+		  <step>To display the Servers view, click <b>Window > Show View > Other</b>.</step>
+		  <step>Expand <b>Server</b>, click <b>Servers</b> and then click <b>OK</b>.</step>
+		  <step>In the Servers view, click the <b>new server wizard</b> link.</step>
+		  <step>Expand <b>Apache</b>, click <b>Tomcat v7.0 Server</b> and click <b>Next</b>.</step>
+		  <step>Set <b>Tomcat installation directory</b> to the root folder where you extracted the Apache Tomcat distribution and click <b>Next</b>.</step>
+		  <step>Select <b>AirportWebDemo</b> in the list of the projects in the <b>Available</b> pane.</step>
+		  <step>Click <b>Add</b> and then click <b>Finish</b>. This adds the project to the Tomcat server. You now need to run the demonstration on that server.</step>
+		  <step>In COBOL Explorer, right-click the AirportWebDemo project and click <b>Run As > Run on Server</b>.</step>
+		  <step>Click <b>Tomcat v7.0 Server</b> under <b>localhost</b> in list of existing servers, then click <b>Finish</b>. This open the default application page in a web browser</step>
+		  <step>You may receive some <b>Windows Security Alert</b> messages - click <b>Allow access</b> in all of them to enable the demonstration to run. The Welcome page of the application is displayed within Eclipse.</step>
+          <step>Click <b>Demo</b>. This opens a Web form where you can specify the airport codes of two airports.</step>
+		  <step>Enter two airport codes and click <b>Submit</b>. This shows the distance between the two airports and also shows the locations of the airport on the world map.</step>
+		  <step>To stop the application you need to stop the server - in the Servers view, right-click <b>Tomcat v7.0 Server</b> and click <b>Stop</b>.</step>
+		  <step>You can also access the demonstration application on a mobile device as follows:
+			<steps>
+		        <step>Start a command prompt on your machine and enter: ipconfig.</step>
+				<step>Take a note of the IP address that is listed under the IPv4 Address.</step>
+				<step>Start a browser on your mobile device.</step>
+				<step>Load the following address in the browser: <b>%IP Address%:8080/AirportWebDemo</b>.</step>
+			</steps>
+		  </step>
+		  
+        </steps>
+      </step>
+    </steps>
+  </howToRun>
+</sample>
